@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 
 import { DataService } from "./data.service";
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,22 +12,31 @@ import { DataService } from "./data.service";
 })
 export class AppComponent {
   result:Array<any>
-  name:string
+  private name:string;
+  private age:number;
 
-  constructor(private dataService:DataService){
+  constructor(private dataService:DataService ,private router: Router){
       this.onLoad()
   }
   onAdd(){
-    
-    this.dataService.addData(this.name).subscribe(res=>{
-      console.log(this.name)
-      console.log(res)
+    const data = {
+      name:this.name,
+      age:this.age
+    }
+    this.dataService.addData(data).subscribe(res=>{
+      console.log("## Add ##")
+      console.log(data)
       this.onLoad()
     })
   }
+  onEdit(input){
+    this.router.navigate([`/editEmp/${input._id}`]);
+    this.onLoad()
+  }
   onDel(data){
     this.dataService.delData(data._id).subscribe(res=>{      
-      console.log(res)
+      console.log("## Del ##")
+      console.log(data)
       this.onLoad()
     })
   }
@@ -33,6 +44,7 @@ export class AppComponent {
   onLoad(){
     this.dataService.getData().subscribe(res=>{
       this.result = res
+      //console.log(this.result)
     })
   }
 }

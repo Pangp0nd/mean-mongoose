@@ -5,13 +5,33 @@
   </h1>
   <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
 </div>
-<form >
-  <label for="name">Name</label>
+<form>
+  <label for="">Name</label>
   <input type="text"  [(ngModel)]="name" name="name">
+  <label for="">age</label>
+  <input type="number"  [(ngModel)]="age" name="age">
   <button (click)="onAdd()">Submit</button>
 </form>
 
 
-<ul>
+<!-- <ul>
   <li *ngFor="let data of result">{{data.name}} <button (click)="onDel(data)">del</button></li>
-</ul>
+</ul> -->
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Option</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of result">
+      <td>{{data.name}} </td>
+      <td>{{data.age}} </td>
+      <td><button (click)="onEdit(data)">Edit</button></td>
+      <td><button (click)="onDel(data)">Del</button></td>
+    </tr>
+  </tbody>
+</table>
+<router-outlet></router-outlet>

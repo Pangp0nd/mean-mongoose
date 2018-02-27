@@ -3,10 +3,18 @@ const router = express.Router()
 const mongoose = require('mongoose');
 const ObjectID = mongoose.ObjectID
 
-const Data = require('./schema.js')
+const Data = require('./model.js')
 
 router.get('/show',function(req,res){
     Data.find({}, function(err,results){
+        if (err) return res.send(err);
+        if (results) return res.send(results);
+    })
+})
+
+router.get('/get/:id',function(req,res){
+    var query = { _id :req.params.id}
+    Data.findById(query, function(err,results){
         if (err) return res.send(err);
         if (results) return res.send(results);
     })
@@ -30,13 +38,11 @@ router.delete('/delete/:id',function(req,res){
 
 router.put('/edit/:id', function(req, res) {
     var query = { _id :req.params.id}
-    var data = {    name : req.body.name,
-                    age : req.body.age
-                }   
+    var obj = new Data(req.body) 
     
-    Data.findByIdAndUpdate(query, data, function(err, results){
+    Data.findByIdAndUpdate(query, obj, function(err, results){
         if (err) return res.send(err);
-        if (results) return res.send('updated');
+        if (results) return res.send('updated '+obj);
     })
 })
 
